@@ -1,3 +1,4 @@
+package src;
 public class Player {
     public float x, y;
     public Player(int x, int y)

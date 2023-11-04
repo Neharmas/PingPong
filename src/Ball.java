@@ -1,3 +1,4 @@
+package src;
 public class Ball {
     public float x, y;
     public Ball()

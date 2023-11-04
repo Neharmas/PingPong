@@ -1,3 +1,4 @@
+package src;
 public class GameManager
 {
     GameBoard gameBoard = new GameBoard(3.5f, 5f, -5f, -3.5f);

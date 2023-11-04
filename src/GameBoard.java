@@ -1,3 +1,4 @@
+package src;
 public class GameBoard
 {
     public float up, right, left, down;
