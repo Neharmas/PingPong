@@ -4,21 +4,15 @@ import Util.Vector2;
 
 public class Ball implements Entity{
     public Vector2 position = new Vector2();
-    public Vector2 velocity = new Vector2(1, 0);
-    float width = 1.0f;
-    float height = 1.0f;
-    float speed = 2.0f;
+    public Vector2 velocity = new Vector2();
+    public float width = 1.0f;
+    public float height = 1.0f;
+    public float speed = 2.0f;
     public Ball() { }
-    
-    public void move(Vector2 direction, float deltaTime)
-    {
-        velocity = direction.normalized().scale(speed * deltaTime);
-        this.position.add(velocity);
-    }
     
     @Override
     public void start() {
-    
+        velocity = new Vector2(1, 0);
     }
     
     @Override
@@ -32,6 +26,27 @@ public class Ball implements Entity{
         {
             //System.out.println("Player 2 wins");
         }
+    }
+    
+    public void move(Vector2 direction, float deltaTime)
+    {
+        velocity = direction.normalized().scale(speed * deltaTime);
+        this.position.add(velocity);
+    }
+    
+    @Override
+    public Vector2 getPosition() {
+        return position;
+    }
+    
+    @Override
+    public float getWidth() {
+        return width;
+    }
+    
+    @Override
+    public float getHeight() {
+        return height;
     }
     
     @Override

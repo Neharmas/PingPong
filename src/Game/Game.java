@@ -1,17 +1,13 @@
 package src.Game;
 
 import Util.Vector2;
-import src.Ball;
-import src.InputHandler;
 import src.Player;
-import src.Window;
-
-import java.awt.event.KeyEvent;
+import src.Ball;
 
 import static src.App.entityManager;
 
-public class Game {
-  public static void start()
+public class Game{
+  public void start()
   {
     Player player1 = (Player)entityManager.addEntity(new Player());
     Player player2 = (Player)entityManager.addEntity(new Player());
@@ -21,18 +17,13 @@ public class Game {
     player2.position = new Vector2(9, 0);
     ball.position = new Vector2(0,0);
   }
-  public static void afterStart()
+  public void afterStart()
   {
     entityManager.start();
   }
-  public static void update(InputHandler input, float deltaTime)
+  public void update(float deltaTime)
   {
-    //if (input.isKeyPressed(KeyEvent.VK_E))
-    //{
-      //System.out.println("Yes");
-    //}
-    
-    
+    System.out.println(entityManager.getEntity(0).getPosition());
     entityManager.update(deltaTime);
   }
 }

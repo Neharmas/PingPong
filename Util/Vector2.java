@@ -44,7 +44,13 @@ public class Vector2 {
     }
 
     public Vector2 normalized() {
-        return new Vector2(x / getMagnitude(), y / getMagnitude());
+        float magnitude = getMagnitude();
+        if (magnitude == 0) {
+            return new Vector2(0,0);
+        }
+        float newX = x / magnitude;
+        float newY = y / magnitude;
+        return new Vector2(newX, newY);
     }
 
     public Vector2 opposite() {

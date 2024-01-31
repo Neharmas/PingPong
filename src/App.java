@@ -2,10 +2,6 @@ package src;
 
 import src.Game.Game;
 
-import javax.swing.*;
-
-import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
-
 public class App {
   public static EntityManager entityManager = new EntityManager();
   static double deltaTime = 0;
@@ -16,12 +12,14 @@ public class App {
   int targetFPS = 144;
   float frameTime;
   
+  public static Window window = new Window();
+  public Game game = new Game();
+  
   App(){}
   public void start()
   {
-    Window window = new Window();
-    Game.start();
-    Game.afterStart();
+    game.start();
+    game.afterStart();
     prevTime = (double) System.nanoTime() / 1_000_000_000d;
     while(true){
       
@@ -31,11 +29,8 @@ public class App {
       currentFPS = 1.0f / (float)deltaTime;
       frameTime = 1.0f / (float) targetFPS;
       
-      // Input Handling
-      
-      
       // Game Content
-      Game.update(window.input, (float)deltaTime);
+      game.update((float)deltaTime);
       
       // Limit FPS
       long timeToSleep = 1000 / (long) targetFPS - (long)deltaTime * 1000;

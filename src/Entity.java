@@ -7,6 +7,9 @@ public interface Entity {
   float width = 0;
   float height = 0;
   
+  Vector2 getPosition();
+  float getWidth();
+  float getHeight();
   void start();
   void update(float deltaTime);
   
