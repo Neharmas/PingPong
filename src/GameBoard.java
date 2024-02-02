@@ -1,6 +1,8 @@
 package src;
 
 import Util.Vector2;
+import src.Game.Ball;
+import src.Game.Player;
 
 public class GameBoard implements Entity
 {
@@ -13,22 +15,6 @@ public class GameBoard implements Entity
         this.width = width;
         this.height = height;
     }
-    
-    @Override
-    public Vector2 getPosition() {
-        return null;
-    }
-    
-    @Override
-    public float getWidth() {
-        return 0;
-    }
-    
-    @Override
-    public float getHeight() {
-        return 0;
-    }
-    
     @Override
     public void start() {
     
@@ -36,17 +22,6 @@ public class GameBoard implements Entity
     
     @Override
     public void update(float deltaTime) {
-        if (ball.collision(this)) {
-            System.out.println("Test");
-        }
-    }
     
-    @Override
-    public boolean collision(Entity entity) {
-        return
-            0 < entity.position.x + entity.width &&
-                0 + width > entity.position.x &&
-                0 < entity.position.y + entity.height &&
-                0 + height > entity.position.y;
     }
 }

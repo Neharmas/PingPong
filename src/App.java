@@ -3,23 +3,25 @@ package src;
 import src.Game.Game;
 
 public class App {
-  public static EntityManager entityManager = new EntityManager();
+  private float runTime = 0;
   static double deltaTime = 0;
   double prevTime = 0;
   double currentTime = 0;
-  
   double currentFPS = 0;
   int targetFPS = 144;
-  float frameTime;
-  
-  public static Window window = new Window();
+  float currentFrameTime = 0;
+  float targetFrameTime = 1.0f / (float) targetFPS;;
+  public static InputHandler Input = new InputHandler();
+  public Window window = new Window();
   public Game game = new Game();
   
-  App(){}
+  App(){
+    window.addInputHandler(Input);
+  }
   public void start()
   {
+    game.setup();
     game.start();
-    game.afterStart();
     prevTime = (double) System.nanoTime() / 1_000_000_000d;
     while(true){
       
@@ -27,7 +29,8 @@ public class App {
       currentTime = (double) System.nanoTime() / 1_000_000_000d;
       deltaTime = currentTime - prevTime;
       currentFPS = 1.0f / (float)deltaTime;
-      frameTime = 1.0f / (float) targetFPS;
+      currentFrameTime = (float)currentFPS / 1000;
+      runTime += (float)deltaTime;
       
       // Game Content
       game.update((float)deltaTime);
@@ -42,7 +45,7 @@ public class App {
       }
       
       // Calculating Timers
-      
+      // System.out.println(currentFPS);
       prevTime = currentTime;
     }
   }

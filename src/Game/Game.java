@@ -1,29 +1,35 @@
 package src.Game;
 
 import Util.Vector2;
-import src.Player;
-import src.Ball;
-
-import static src.App.entityManager;
+import src.Components.Transform;
+import src.EntityManager;
 
 public class Game{
+  public final static EntityManager entityManager = new EntityManager();
+  Player player1 = new Player(true);
+  Player player2 = new Player(false);
+  Ball ball = new Ball();
+  Wall upperWall = new Wall();
+  Wall lowerWall = new Wall();
+  public void setup()
+  {
+    entityManager.addEntity(player1);
+    entityManager.addEntity(player2);
+    entityManager.addEntity(ball);
+    entityManager.addEntity(upperWall);
+    entityManager.addEntity(lowerWall);
+  }
   public void start()
   {
-    Player player1 = (Player)entityManager.addEntity(new Player());
-    Player player2 = (Player)entityManager.addEntity(new Player());
-    Ball ball = (Ball)entityManager.addEntity(new Ball());
-    
-    player1.position = new Vector2(-9, 0);
-    player2.position = new Vector2(9, 0);
-    ball.position = new Vector2(0,0);
-  }
-  public void afterStart()
-  {
     entityManager.start();
+    Transform upperWallTrans = (Transform) upperWall.components.getComponent(Transform.class);
+    Transform lowerWallTrans = (Transform) lowerWall.components.getComponent(Transform.class);
+    upperWallTrans.position = new Vector2(0, 9);
+    lowerWallTrans.position = new Vector2(0, -9);
   }
   public void update(float deltaTime)
   {
-    System.out.println(entityManager.getEntity(0).getPosition());
     entityManager.update(deltaTime);
+    entityManager.checkCollisions();
   }
 }

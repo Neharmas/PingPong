@@ -1,24 +1,32 @@
 package src;
 
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 public class InputHandler {
-  private String keyPressed;
+  private List<Integer> keysPressed = new ArrayList<>();
   
-  public void setKey(String key)
-  {
-    keyPressed = key;
+  public void addKey(int key) {
+    if(keysPressed.contains(key))
+      return;
+    keysPressed.add(key);
+    //System.out.println(key + " was Pressed");
   }
   
-  public void deleteKey()
-  {
-    keyPressed = null;
+  public void removeKey(int key) {
+    keysPressed.remove(Integer.valueOf(key));
+    //System.out.println(key + " was released");
   }
   
-  public String getKey()
+  public boolean isKeyPressed(int request) {
+    return keysPressed.contains(request);
+  }
+  public boolean isKeyPressed(char request) {
+    return keysPressed.contains(KeyEvent.getExtendedKeyCodeForChar(request));
+  }
+  public boolean isAnyKeyPressed()
   {
-    if (keyPressed == null)
-    {
-      return null;
-    }
-    return keyPressed;
+    return !keysPressed.isEmpty();
   }
 }
