@@ -4,6 +4,7 @@ import Util.Vector2;
 import src.BaseEntity;
 import src.Components.Collision;
 import src.Components.Physics;
+import src.Components.Render;
 import src.Components.Transform;
 
 import java.awt.event.KeyEvent;
@@ -24,10 +25,11 @@ public class Player extends BaseEntity {
     
     @Override
     public void start() {
-        transform = (Transform) components.addComponent(new Transform());
-        physics = (Physics) components.addComponent(new Physics());
-        collision = (Collision) components.addComponent(new Collision());
-        components.addComponent(new Collision());
+        transform = components.addComponent(new Transform());
+        physics = components.addComponent(new Physics());
+        collision = components.addComponent(new Collision());
+        components.addComponent(new Render(1,3));
+
         if (isPlayerOne)
             transform.position = new Vector2(-9, 0);
         else
@@ -43,14 +45,14 @@ public class Player extends BaseEntity {
             if(isPlayerOne){
                 if (Input.isKeyPressed(KeyEvent.VK_W)) {
                     inputAxis.y += 1;
-                    if ( inputAxis.y > 1)
+                    if (inputAxis.y > 1)
                     {
                         inputAxis.y = 1;
                     }
                 }
                 if (Input.isKeyPressed(KeyEvent.VK_S)) {
                     inputAxis.y -= 1;
-                    if ( inputAxis.y < -1 )
+                    if (inputAxis.y < -1)
                     {
                         inputAxis.y = -1;
                     }
@@ -59,14 +61,14 @@ public class Player extends BaseEntity {
             else{
                 if (Input.isKeyPressed(KeyEvent.VK_UP)) {
                     inputAxis.y += 1;
-                    if ( inputAxis.y > 1)
+                    if (inputAxis.y > 1)
                     {
                         inputAxis.y = 1;
                     }
                 }
                 if (Input.isKeyPressed(KeyEvent.VK_DOWN)) {
                     inputAxis.y -= 1;
-                    if ( inputAxis.y < -1 )
+                    if (inputAxis.y < -1)
                     {
                         inputAxis.y = -1;
                     }

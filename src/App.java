@@ -34,12 +34,14 @@ public class App {
       
       // Game Content
       game.update((float)deltaTime);
-      
+      game.render();
+
       // Limit FPS
       long timeToSleep = 1000 / (long) targetFPS - (long)deltaTime * 1000;
       
       try {
-        Thread.sleep(timeToSleep);
+        if (timeToSleep >= 0)
+          Thread.sleep(timeToSleep);
       } catch (InterruptedException e) {
         throw new RuntimeException(e);
       }

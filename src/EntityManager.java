@@ -3,6 +3,7 @@ package src;
 import Util.Pair;
 import Util.Vector2;
 import src.Components.Collision;
+import src.Components.Render;
 import src.Components.Transform;
 
 import java.util.ArrayList;
@@ -65,21 +66,35 @@ public class EntityManager {
       boolean hasCollisionComponent = entity.getSecond().components.hasComponent(Collision.class);
       if(!hasTransformComponent || !hasCollisionComponent)
         continue;
-      Collision firstCol = (Collision) entity.getSecond().components.getComponent(Collision.class);
+      Collision firstCol = entity.getSecond().components.getComponent(Collision.class);
       firstCol.resetCollisionEntity();
       for ( var collisionEntity : entities ){
+
+        // Checks if the collided Entity is the same as the first
         if (entity.getFirst().equals(collisionEntity.getFirst()))
           continue;
-        if ( firstCol.getCollisionEntity() == collisionEntity.getSecond())
+
+        // Checks if the second entity is already recorded
+        if ( collisionEntity.getFirst().equals( firstCol.getCollisionID()) )
           continue;
-        
+
         hasTransformComponent = collisionEntity.getSecond().components.hasComponent(Transform.class);
         hasCollisionComponent = collisionEntity.getSecond().components.hasComponent(Collision.class);
         if(!hasTransformComponent || !hasCollisionComponent)
           continue;
         
-        firstCol.onCollision(entity.getSecond(), collisionEntity.getSecond());
+        firstCol.onEnterCollision(entity.getFirst(), collisionEntity.getFirst());
       }
+    }
+  }
+  public void render(){
+    for ( var entity : entities ){
+      boolean hasTransformComponent = entity.getSecond().components.hasComponent(Transform.class);
+      boolean hasRenderComponent = entity.getSecond().components.hasComponent(Render.class);
+      if(!hasTransformComponent || !hasRenderComponent)
+        continue;
+      Vector2 position = entity.getSecond().components.getComponent(Transform.class).position;
+      entity.getSecond().components.getComponent(Render.class).render(position);
     }
   }
 }
